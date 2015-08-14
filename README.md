@@ -7,6 +7,11 @@ This document descripts the functionality provide by the `xlr-variable-handoff-p
 This plugin enables users to export the all the variables from one template to a json formatted file somewhere on the system xlr is running on and importing it into another template.
 The import can either be done in one go or more selectively by importing one variable at a time.
 
+## Installation
+Copy the plugins jar file into the plugin directory of XL Release.
+
+!! this plugin uses the XL Release jython api to modify releases from a scripted tast. This means that the run as user for the template has to set to the admin user.
+
 ## Supported Tasks
 * [handoff export]
 * [handoff import]
