@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd"
+           xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+
+    <type type="ih.handoffImport" extends="xlrelease.PythonScript"
+          description="get a value from a file set by another job">
+        <property name="handoff_file" category="input" required="true" default="/var/tmp/xlrelease.ih.handoff_file.json"
+                  description="file to import variables from"/>
+        <property name="handoff_field" category="input" required="true"
+                  description="field to get value from colon separated"/>
+        <property name="scriptLocation" default="jython/handoffImport.py" hidden="true"/>
+    </type>
+    <type type="ih.handoffExport" extends="xlrelease.PythonScript"
+          description="put a value from a file set by another job">
+        <property name="handoff_file" category="input" required="true" default="/var/tmp/xlrelease.ih.handoff_file.json"
+                  description="file to export variables to"/>
+        <property name="handoff_field" category="input" required="true" default=""
+                  description="field to get value from"/>
+        <property name="scriptLocation" default="jython/handoffExport.py" hidden="true"/>
+    </type>
+    <type type="ih.dummyVariable" extends="xlrelease.PythonScript"
+          description="dummy out a mandatory value needed by the script which is expected to be imported by the hand off">
+        <property name="dummy_variable" label="dummy variable" category="output" required="true"
+                  description="variable to be dummied"/>
+        <property name="scriptLocation" default="jython/dummyVar.py" hidden="true"/>
+    </type>
+    <type type="ih.importSingleVariable" extends="ih.handoffImport" description="import a single handed off variable">
+           <property name="output_variable_name" label="variable to import" category="output" required="true"
+                  description="variable to be imported"/>
+        <property name="variable_name" label="variable to import" category="input" required="true"
+                  description="variable to be imported"/>
+        <property name="scriptLocation" default="jython/importSingleVariable.py" hidden="true"/>
+    </type>
+</synthetic>
+
+
