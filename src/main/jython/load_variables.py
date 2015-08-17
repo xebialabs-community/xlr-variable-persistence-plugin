@@ -18,8 +18,8 @@ __release = getCurrentRelease()
 __id = getattr(__release, 'id')
 
 def read_json_data():
-    with open(handoff_file, "r+") as jsonFile:
-     return json.loads(jsonFile.read())[handoff_field]
+    with open(variable_file, "r+") as jsonFile:
+     return json.loads(jsonFile.read())[variable_field]
 
 
 def set_variable(key, value):

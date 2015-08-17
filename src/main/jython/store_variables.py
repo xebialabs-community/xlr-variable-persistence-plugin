@@ -18,10 +18,10 @@ variables = __release.getVariableValues()
 
 
 def save_release_variables_to_jsonfile(variable_map):
-    with open(handoff_file, "r+") as jsonFile:
+    with open(variable_file, "r+") as jsonFile:
         data = json.loads(jsonFile.read())
 
-        data[handoff_field] = variable_map
+        data[variable_field] = variable_map
 
         jsonFile.seek(0)  # rewind
         jsonFile.write(json.dumps(data))
