@@ -17,10 +17,6 @@ from org.apache.commons.collections.list import FixedSizeList;
 __release = getCurrentRelease()
 __id = getattr(__release, 'id')
 
-def read_json_data():
-    with open(variable_file, "r+") as jsonFile:
-     return json.loads(jsonFile.read())[variable_field]
-
 
 def set_variable(key, value):
 
@@ -28,12 +24,30 @@ def set_variable(key, value):
   if re.match(regex, key) is None:
     key = "${" + key + "}"
 
+    print "setting %s to %s" % (k ,v)
+
   __release.setVariableValues({key : value})
   releaseApi.updateRelease(__id, __release)
 
-data = read_json_data()
+def get_variable_store(variable_store):
 
-pprint.pprint(data)
+    request = HttpRequest({'url': 'http://localhost:5516'}, release.scriptUsername, release.scriptUserPassword)
 
-for k, v in data.items():
+    response = request.get('/configurations', contentType='application/json')
+    data = json.loads(response.getResponse())
+    print data
+    for i in range(0, len(data)):
+        if variable_store['title'] == data[i]['properties']['title'] and variable_store['variable_json'] == \
+                data[i]['properties']['variable_json']:
+                return data[i]
+
+
+var_string =  get_variable_store(variable_store)['properties']['variable_json']
+
+variables = json.loads(var_string)
+
+for k, v in variables.items():
     set_variable(k,v)
+
+
+

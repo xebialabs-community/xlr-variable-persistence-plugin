@@ -12,26 +12,42 @@ Copy the plugins jar file into the plugin directory of XL Release.
 
 !! this plugin uses the XL Release jython api to modify releases from a scripted tast. This means that the run as user for the template has to set to the admin user.
 !! in order fo the second template to start mandatory variables should be given a dummy value at template creation. these values will get overwritten by the load variables task.
+!! for now this plugin only works when xl-release listens on port 5516
 
 ## Supported Tasks
 * [store variables]
 * [load variables]
+* [mock variable]
+* [variable store]
 
 #### store variables
-Writes the current names and values of all variables in the release to a jython file
+Writes the current names and values of all variables in the release to a ci to be persisted in the database
 
 **input properties**
 
-* `variable_file`: Full path to the json file on the filesystem where the variables will be written to
-* `variable_field`: name of the json map in the hand off file which will hold the variables
+* `variable_store`: predefined variable store
 
 #### load variables
-imports names and values of variables in a certain json map in the designated json file into the current release
+imports names and values of variables in a certain variable store ci into the current release
 
 **input properties**
 
-* `variable_file`: Full path to the json file on the filesystem where the variables will be written to
-* `variable_field`: name of the json map in the hand off file which will hold the variables
+* `variable_store`: predifined variable store
+
+#### mock variable
+mocks a variable so that the release will start although all of the required variables have not been set
+
+**output properties**
+
+* `variable_name`: name of the variable to be mocked (requires ${notation})
+
+#### variable store
+
+Config ci that will hold the persisted variables in a string field
+
+**properties**
+
+* `variable_json`: !! do not edit by hand !! (and if u did and stuff goes horrible wrong , don't call me)
 
 
 ## Usage

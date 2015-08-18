@@ -10,23 +10,21 @@
            xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 
-    <type type="ih.handoffImport" extends="xlrelease.PythonScript"
-          description="get a value from a file set by another job">
-        <property name="variable_file" category="input" required="true" default="/var/tmp/xlrelease.ih.variable_file.json"
-                  description="file to import variables from"/>
-        <property name="variable_field" category="input" required="true"
-                  description="field to get value from colon separated"/>
+    <type type="vp.loadVariables" extends="xlrelease.PythonScript" description="get a value set by another release">
+        <property name="variable_store" kind="ci" referenced-type="vp.variableStore" required="true" category="input"/>
         <property name="scriptLocation" default="jython/load_variables.py" hidden="true"/>
     </type>
-    <type type="ih.handoffExport" extends="xlrelease.PythonScript"
-          description="put a value from a file set by another job">
-        <property name="variable_file" category="input" required="true" default="/var/tmp/xlrelease.ih.variable_file.json"
-                  description="file to export variables to"/>
-        <property name="variable_field" category="input" required="true" default=""
-                  description="field to get value from"/>
+    <type type="vp.storeVariables" extends="xlrelease.PythonScript" description="put a value from a file set by another job">
+        <property name="variable_store" kind="ci" referenced-type="vp.variableStore" required="true" category="input"/>
         <property name="scriptLocation" default="jython/store_variables.py" hidden="true"/>
     </type>
-
+    <type type="vp.mockVariable" extends="xlrelease.PythonScript" description="mimic the emission of a variable">
+        <property name="variable_name" label="variable name to mock" category="output" required="true" kind="string"/>
+        <property name="scriptLocation" default="jython/mock_variable.py" hidden="true"/>
+    </type>
+    <type type="vp.variableStore" extends="xlrelease.Configuration">
+        <property name="variable_json" hidden="false" kind="string" size="large" default="{}"/>
+    </type>
 </synthetic>
 
 
