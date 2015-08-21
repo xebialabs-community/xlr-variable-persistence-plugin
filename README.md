@@ -20,7 +20,7 @@ Copy the plugin JAR file into the `SERVER_HOME/plugins` directory of XL Release.
 
 * Store Variables
 * Load Variables
-* Mock Variable
+* Make Variable Optional
 
 #### Store Variables
 
@@ -38,7 +38,7 @@ Imports the names and values of variables from a variable store into the current
 
 * `variableStore`: the variable store from which variables are to be loaded _required_
 
-#### Mock Variable
+#### Make Variable Optional
 
 Makes a variable optional so that the release can start without a value having to be specified for it.
 

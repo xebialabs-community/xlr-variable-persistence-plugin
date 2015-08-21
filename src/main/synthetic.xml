@@ -23,8 +23,8 @@ description="put a value from a file set by another job">
         <property name="variableStore" kind="ci" referenced-type="vars.VariableStore" required="true" category="input" />
     </type>
 
-    <type type="vars.MockVariable" extends="vars.VariablesTask" description="mimic the emission of a variable">
-        <property name="variableName" label="Output Variable to Mock" category="output" />
+    <type type="vars.MakeVariableOptional" extends="vars.VariablesTask">
+        <property name="variableName" label="Variable to Make Optional" category="output" />
     </type>
 
     <type type="vars.VariableStore" extends="xlrelease.Configuration">
