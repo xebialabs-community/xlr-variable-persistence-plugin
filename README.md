@@ -4,55 +4,50 @@
 This document descripts the functionality provide by the `xlr-variable-persistence-plugin`, as well as potential future functionality.
 
 ## Overview
-This plugin enables users to export the all the variables from one template to a json formatted file somewhere on the system xlr is running on and importing it into another template.
-The import can either be done in one go or more selectively by importing one variable at a time.
+This plugin enables users to export the all the variables from one template and importing them into another template.
 
 ## Installation
-Copy the plugins jar file into the plugin directory of XL Release.
 
-!! this plugin uses the XL Release jython api to modify releases from a scripted tast. This means that the run as user for the template has to set to the admin user.
-!! in order fo the second template to start mandatory variables should be given a dummy value at template creation. these values will get overwritten by the load variables task.
-!! for now this plugin only works when xl-release listens on port 5516
+Copy the plugin JAR file into the `SERVER_HOME/plugins` directory of XL Release.
+
+### Limitations
+
+* This plugin uses the XL Release API to modify releases from a scripted tast. This means that the 'run as user' for the template has to set to the admin user.
+* In order for the 'downstream' template that is trying to load the variables to start, mandatory variables should be given a dummy value at template creation. These values will be overwritten by the `load variables` task. Alternatively, you can make the variables optional by including `mock variable` tasks in your template.
+* For now, this plugin only works when XL Release listens on port 5516.
 
 ## Supported Tasks
-* [store variables]
-* [load variables]
-* [mock variable]
-* [variable store]
 
-#### store variables
-Writes the current names and values of all variables in the release to a ci to be persisted in the database
+* Store Variables
+* Load Variables
+* Mock Variable
 
-**input properties**
+#### Store Variables
 
-* `variable_store`: predefined variable store
+Writes the names and values of all variables in the release to a global variable store. The current contents of the variable store will be overridden.
 
-#### load variables
-imports names and values of variables in a certain variable store ci into the current release
+**Input properties**
 
-**input properties**
+* `variableStore`: the variable store to which variables should be written. You can create one or more variable stores via the [Configuration menu](https://docs.xebialabs.com/xl-release/how-to/create-custom-configuration-types-in-xl-release.html#configuration-page) in XL Release _required_
 
-* `variable_store`: predifined variable store
+#### Load Variables
 
-#### mock variable
-mocks a variable so that the release will start although all of the required variables have not been set
+Imports the names and values of variables from a variable store into the current release and sets the values of all variables with matching names.
 
-**output properties**
+**Input properties**
 
-* `variable_name`: name of the variable to be mocked (requires ${notation})
+* `variableStore`: the variable store from which variables are to be loaded _required_
 
-#### variable store
+#### Mock Variable
 
-Config ci that will hold the persisted variables in a string field
+Makes a variable optional so that the release can start without a value having to be specified for it.
 
-**properties**
+**Output properties**
 
-* `variable_json`: !! do not edit by hand !! (and if u did and stuff goes horrible wrong , don't call me)
+* `variableName`: name of the variable to be made optional _required_
 
+## Example Use Case
 
-## Usage
-The typical use-case for this plugin is an environment which is seperated into two seperate "compartments". On compartment (the Continuous build/integration) cranks out a build as soon as new code becomes available and runs on a git/svn/artifactory trigger.
-The other compartment (the testing compartment) needs to be deployed at certain time intervals but prefereble with the latest know good release. This plugin enables xlr to solve this problem with two seperate templates that are connected by the export of variables from the build/ci compartment template which will ten get picked up by the time triggerd compartment when it is time to run the template.
+An example use-case for this plugin is a delivery process which is seperated into two separate "phases". The first phase, (the "Continuous Build/Integration phase") is triggered by code checkins and cranks out a build as soon as new code becomes available. The second phase (the "testing phase") is executed at regular intervals, using the latest "known good" release candidate.
 
-
-## Examples
+This plugin allows users to "connect" the two seperate templates that represent the first and second phases of this process, by exporting variables from the Continuous Build/Integration release and then importing them in the testing release. The variables from the Continuous Build/Integration release will include, amongst others, information about the latest 'known good' release candidate version, which allows the testing release to deploy the correct version.
