@@ -42,7 +42,7 @@ def get_variable_store(variable_store):
                 return data[i]
 
 
-var_string =  get_variable_store(variable_store)['properties']['variable_json']
+var_string =  get_variable_store(variableStore)['properties']['variable_json']
 
 variables = json.loads(var_string)
 

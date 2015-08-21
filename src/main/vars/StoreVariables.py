@@ -37,24 +37,6 @@ def save_variable_store(config_item, variables):
     response = request.put('/configurations/%s' % (config_item['id']), jsonPayload,contentType = 'application/json')
 
 
-save_variable_store(get_variable_store(variable_store), getCurrentRelease().getVariableValues())
+save_variable_store(get_variable_store(variableStore), getCurrentRelease().getVariableValues())
 
 sys.exit(0)
-
-
-#
-#
-#
-#
-# def save_release_variables_to_jsonfile(variable_map):
-#     with open(variable_file, "r+") as jsonFile:
-#         data = json.loads(jsonFile.read())
-#
-#         data[variable_field] = variable_map
-#
-#         jsonFile.seek(0)  # rewind
-#         jsonFile.write(json.dumps(data))
-#         jsonFile.truncate()
-#
-#
-# save_release_variables_to_jsonfile(variables)
