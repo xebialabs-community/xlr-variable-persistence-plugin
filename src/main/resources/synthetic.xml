@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd"
+           xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <type type="vars.VariablesTask" extends="xlrelease.PythonScript" virtual="true">
+        <property name="taskColor" hidden="true" default="#E60000" />
+        <property name="iconLocation" default="vars/variables.png" hidden="true" />
+    </type>
+
+    <type type="vars.LoadVariables" extends="vars.VariablesTask" description="Get a value set by another release">
+        <property name="variableStore" kind="ci" referenced-type="vars.VariableStore" required="true" category="input" />
+    </type>
+
+    <type type="vars.StoreVariables" extends="vars.VariablesTask" 
+description="put a value from a file set by another job">
+        <property name="variableStore" kind="ci" referenced-type="vars.VariableStore" required="true" category="input" />
+    </type>
+
+    <type type="vars.MakeVariableOptional" extends="vars.VariablesTask">
+        <property name="variableName" label="Variable to Make Optional" category="output" />
+    </type>
+
+    <type type="vars.VariableStore" extends="xlrelease.Configuration">
+        <property name="variablesJson" default="{}" />
+    </type>
+</synthetic>
+
+
