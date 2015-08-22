@@ -18,8 +18,7 @@
         <property name="variableStore" kind="ci" referenced-type="vars.VariableStore" required="true" category="input" />
     </type>
 
-    <type type="vars.StoreVariables" extends="vars.VariablesTask" 
-description="put a value from a file set by another job">
+    <type type="vars.StoreVariables" extends="vars.VariablesTask" description="put a value from a file set by another job">
         <property name="variableStore" kind="ci" referenced-type="vars.VariableStore" required="true" category="input" />
     </type>
 
