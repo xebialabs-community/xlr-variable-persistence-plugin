@@ -4,7 +4,7 @@
 This document descripts the functionality provide by the `xlr-variable-persistence-plugin`, as well as potential future functionality.
 
 ## Overview
-This plugin enables users to export the all the variables from one template and importing them into another template.
+This plugin enables users to export the all the variables from one template and import them into another template.
 
 ## Installation
 
@@ -12,8 +12,8 @@ Copy the plugin JAR file into the `SERVER_HOME/plugins` directory of XL Release.
 
 ### Limitations
 
-* This plugin uses the XL Release API to modify releases from a scripted tast. This means that the 'run as user' for the template has to set to the admin user.
-* In order for the 'downstream' template that is trying to load the variables to start, mandatory variables should be given a dummy value at template creation. These values will be overwritten by the `load variables` task. Alternatively, you can make the variables optional by including `mock variable` tasks in your template.
+* This plugin uses the XL Release API to modify releases from a [Custom Script task](https://docs.xebialabs.com/xl-release/how-to/create-custom-task-types-in-xl-release.html). This requires the 'run as user' for the template to be set to the admin user.
+* In order for the 'downstream' template that is trying to load the variables to start, mandatory variables should be given a dummy value when the release is create. These values will be overwritten by the `load variables` task. Alternatively, you can make the variables optional by including `make variable optional` tasks in your template.
 * For now, this plugin only works when XL Release listens on port 5516.
 
 ## Supported Tasks
@@ -24,7 +24,7 @@ Copy the plugin JAR file into the `SERVER_HOME/plugins` directory of XL Release.
 
 #### Store Variables
 
-Writes the names and values of all variables in the release to a global variable store. The current contents of the variable store will be overridden.
+Writes the names and values of all variables in the release to a global variable store. The current contents of the variable store will be overwritten.
 
 **Input properties**
 
